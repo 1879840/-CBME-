@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>豌豆思维 · CBME 闯关体验｜儿童成长新坐标</title>
+<style>
+  :root {
+    --brand: #22C55E;
+    --brand-dark: #16A34A;
+    --brand-soft: #DCFCE7;
+    --accent: #F97316;
+    --accent-soft: #FFEDD5;
+    --ink: #0F172A;
+    --ink-2: #334155;
+    --ink-3: #64748B;
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --line: #E2E8F0;
+    --u: #6366F1;
+    --p: #F59E0B;
+    --s: #10B981;
+    --c: #EC4899;
+    --radius: 18px;
+    --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #ECFDF5 0%, #F8FAFC 240px);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 18px 120px;
+  }
+
+  /* ============== Top Header ============== */
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .logo {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--brand);
+    display: grid; place-items: center;
+    color: #fff; font-weight: 700; font-size: 18px;
+    box-shadow: 0 4px 10px rgba(34,197,94,0.35);
+  }
+  .top-title { font-size: 15px; color: var(--ink-2); font-weight: 600; }
+  .top-sub { font-size: 11px; color: var(--ink-3); }
+
+  /* ============== Screen ============== */
+  .screen { display: none; animation: fadeIn .35s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============== Home ============== */
+  .hero {
+    background: linear-gradient(135deg, #22C55E 0%, #10B981 100%);
+    color: #fff;
+    border-radius: 24px;
+    padding: 26px 22px;
+    box-shadow: 0 12px 30px rgba(16,185,129,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; right: -30px; top: -30px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+  .hero::after {
+    content: ""; position: absolute; right: 30px; bottom: -50px;
+    width: 100px; height: 100px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .hero-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 8px;
+    position: relative;
+  }
+  .hero-desc {
+    font-size: 13px;
+    opacity: 0.92;
+    margin: 0;
+    position: relative;
+  }
+
+  .intro {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-top: 16px;
+    box-shadow: var(--shadow);
+  }
+  .intro h3 { margin: 0 0 10px; font-size: 15px; }
+  .upsc-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .upsc-tag {
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 12px;
+    background: #F1F5F9;
+    font-size: 11px;
+    color: var(--ink-2);
+  }
+  .upsc-tag b {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  .upsc-tag.u b { color: var(--u); }
+  .upsc-tag.p b { color: var(--p); }
+  .upsc-tag.s b { color: var(--s); }
+  .upsc-tag.c b { color: var(--c); }
+
+  .modules {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+  }
+  .module-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    border: 1px solid transparent;
+  }
+  .module-card:active { transform: scale(0.98); }
+  .module-card.done {
+    border-color: var(--brand);
+    background: linear-gradient(90deg, #F0FDF4 0%, #FFFFFF 100%);
+  }
+  .module-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .m1 { background: #FEF3C7; }
+  .m2 { background: #DBEAFE; }
+  .m3 { background: #E0E7FF; }
+  .m4 { background: #FCE7F3; }
+  .m5 { background: #DCFCE7; }
+  .module-info { flex: 1; min-width: 0; }
+  .module-title { font-size: 15px; font-weight: 600; }
+  .module-desc { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .module-status {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 100px;
+    background: #F1F5F9;
+    color: var(--ink-3);
+    flex-shrink: 0;
+  }
+  .module-card.done .module-status {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22C55E, #10B981);
+    border-radius: 100px;
+    transition: width .4s ease;
+  }
+  .progress-text {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-top: 8px;
+  }
+
+  /* ============== Level Screen ============== */
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .back-btn {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: var(--card);
+    display: grid; place-items: center;
+    box-shadow: var(--shadow);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .level-title {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .stepper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .step-dot {
+    height: 6px;
+    border-radius: 100px;
+    background: #E2E8F0;
+    transition: background .3s;
+  }
+  .step-dot.active { background: var(--brand); }
+
+  .step-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  .step-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+  .step-tag.u { background: #EEF2FF; color: var(--u); }
+  .step-tag.p { background: #FEF3C7; color: var(--p); }
+  .step-tag.s { background: #D1FAE5; color: var(--s); }
+  .step-tag.c { background: #FCE7F3; color: var(--c); }
+
+  .step-question {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 6px;
+    line-height: 1.5;
+  }
+  .step-hint {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin: 0 0 16px;
+  }
+
+  .options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .option {
+    padding: 14px 16px;
+    background: #F8FAFC;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    font-size: 14px;
+    color: var(--ink-2);
+    text-align: left;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .option:active { transform: scale(0.98); }
+  .option.selected {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+  .option.correct {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+  .option.wrong {
+    background: #FEE2E2;
+    border-color: #F87171;
+    color: #B91C1C;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .input-field:focus { border-color: var(--brand); }
+
+  .feedback {
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.good { background: var(--brand-soft); color: var(--brand-dark); }
+  .feedback.tip { background: var(--accent-soft); color: #9A3412; }
+
+  .primary-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: auto;
+    box-shadow: 0 6px 16px rgba(34,197,94,0.35);
+    transition: transform .15s;
+  }
+  .primary-btn:active { transform: scale(0.98); }
+  .primary-btn:disabled {
+    background: #CBD5E1;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* ========= Interactive Zones ========= */
+  .fruit-shop {
+    background: #FFFBEB;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .fruit-row {
+    display: flex; justify-content: space-around;
+    text-align: center;
+  }
+  .fruit-item .emoji { font-size: 32px; }
+  .fruit-item .price { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+
+  .tangram-preview {
+    background: #EFF6FF;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .tangram-preview .big { font-size: 64px; line-height: 1; }
+  .tangram-preview .label { font-size: 12px; color: var(--ink-3); margin-top: 6px; }
+
+  .suspects {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .suspect {
+    padding: 12px 4px;
+    background: #F8FAFC;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .suspect:active { transform: scale(0.95); }
+  .suspect.excluded {
+    background: #FEE2E2;
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+  .suspect.selected {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+  }
+  .suspect .emoji { font-size: 28px; display: block; }
+  .suspect .name { font-size: 11px; color: var(--ink-2); margin-top: 4px; }
+
+  .clues { display: grid; gap: 8px; margin-bottom: 12px; }
+  .clue {
+    padding: 10px 12px;
+    background: #FEFCE8;
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .lottery-bag {
+    background: linear-gradient(135deg, #FCE7F3 0%, #FDF2F8 100%);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .bag-emoji { font-size: 54px; }
+  .balls-info { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+
+  .predict-input {
+    display: flex; gap: 10px; margin-bottom: 12px;
+  }
+  .predict-input > div {
+    flex: 1;
+    background: #F8FAFC;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .predict-input label { font-size: 12px; color: var(--ink-3); display: block; margin-bottom: 4px; }
+  .predict-input input {
+    width: 60px;
+    padding: 8px;
+    text-align: center;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .timeline {
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .timeline-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .time-slot {
+    flex: 1;
+    min-width: 40px;
+    padding: 8px 4px;
+    background: #fff;
+    border: 1.5px dashed var(--line);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .time-slot.filled {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+    border-style: solid;
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+  .task-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .task-chip {
+    padding: 6px 10px;
+    background: #FEF3C7;
+    color: #92400E;
+    border-radius: 100px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .task-chip.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .task-chip.used {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+
+  /* ============== Complete Level ============== */
+  .complete-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .complete-emoji { font-size: 64px; }
+  .complete-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 8px 0;
+  }
+  .takeaway {
+    background: linear-gradient(135deg, #FEF3C7 0%, #FEE2E2 100%);
+    padding: 16px;
+    border-radius: 14px;
+    margin: 16px 0;
+  }
+  .takeaway .label { font-size: 11px; color: var(--ink-3); letter-spacing: 1px; }
+  .takeaway .text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ============== Final Screen ============== */
+  .final-hero {
+    background: linear-gradient(135deg, #F97316 0%, #EC4899 100%);
+    color: #fff;
+    padding: 30px 22px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(236,72,153,0.25);
+  }
+  .final-hero .medal { font-size: 76px; }
+  .final-hero h2 { font-size: 22px; margin: 8px 0; }
+  .final-hero p { font-size: 13px; opacity: 0.9; margin: 0; }
+
+  .coord-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 16px;
+    box-shadow: var(--shadow);
+  }
+  .coord-card h3 { margin: 0 0 4px; font-size: 16px; }
+  .coord-card .sub { font-size: 12px; color: var(--ink-3); margin-bottom: 16px; }
+  .coords {
+    display: grid;
+    gap: 10px;
+  }
+  .coord {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: #F8FAFC;
+    border-radius: 12px;
+  }
+  .coord-emoji {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--card);
+    display: grid; place-items: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .coord-body b {
+    font-size: 14px;
+    display: block;
+    color: var(--ink);
+  }
+  .coord-body span {
+    font-size: 12px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  .cta {
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    color: #fff;
+    padding: 20px;
+    border-radius: var(--radius);
+    margin-top: 16px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(34,197,94,0.3);
+  }
+  .cta h3 { margin: 0 0 6px; font-size: 16px; }
+  .cta p { margin: 0 0 14px; font-size: 12px; opacity: 0.92; }
+  .cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--brand-dark);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .footer-tip {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 20px;
+  }
+
+  /* ============== Utility ============== */
+  .flex-btns {
+    display: flex; gap: 10px; margin-top: 12px;
+  }
+  .flex-btns .primary-btn { margin-top: 0; }
+  .ghost-btn {
+    flex: 1;
+    padding: 14px;
+    background: transparent;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    font-size: 14px;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ========== 顶部 Logo ========== -->
+  <div class="top">
+    <div class="logo">豌</div>
+    <div>
+      <div class="top-title">豌豆思维 · CBME 闯关体验</div>
+      <div class="top-sub">五大模块 × UPSC 四步思维法</div>
+    </div>
+  </div>
+
+  <!-- ========== 首页 ========== -->
+  <div class="screen active" id="screen-home">
+    <div class="hero">
+      <h1 class="hero-title">陪孩子玩一遍<br/>看见"思维"是怎么长出来的</h1>
+      <p class="hero-desc">五关小游戏，答案不是重点，孩子怎么想才是。</p>
+    </div>
+
+    <div class="intro">
+      <h3>什么是 UPSC 四步思维法？</h3>
+      <div class="upsc-row">
+        <div class="upsc-tag u"><b>U</b>理解<br/>看清问题</div>
+        <div class="upsc-tag p"><b>P</b>计划<br/>选对策略</div>
+        <div class="upsc-tag s"><b>S</b>解决<br/>动手表达</div>
+        <div class="upsc-tag c"><b>C</b>检查<br/>验证复盘</div>
+      </div>
+    </div>
+
+    <div class="modules" id="modules"></div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+    <div class="progress-text" id="progress-text">已完成 0 / 5 关</div>
+  </div>
+
+  <!-- ========== 关卡页 ========== -->
+  <div class="screen" id="screen-level">
+    <div class="level-header">
+      <div class="back-btn" onclick="goHome()">‹</div>
+      <div class="level-title" id="level-title"></div>
+    </div>
+    <div class="stepper">
+      <div class="step-dot" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+      <div class="step-dot" id="dot-3"></div>
+    </div>
+    <div class="step-card" id="step-card"></div>
+  </div>
+
+  <!-- ========== 关卡完成 ========== -->
+  <div class="screen" id="screen-complete">
+    <div class="complete-card">
+      <div class="complete-emoji" id="complete-emoji">🎉</div>
+      <div class="complete-title" id="complete-title">这一关完成啦！</div>
+      <p style="color:var(--ink-3); font-size:13px; margin: 6px 0 0;" id="complete-sub"></p>
+      <div class="takeaway">
+        <div class="label">今天带走的一句话</div>
+        <div class="text" id="complete-takeaway"></div>
+      </div>
+      <button class="primary-btn" onclick="goHome()">回去挑下一关</button>
+    </div>
+  </div>
+
+  <!-- ========== 通关页 ========== -->
+  <div class="screen" id="screen-final">
+    <div class="final-hero">
+      <div class="medal">🏆</div>
+      <h2>五关全部通关！</h2>
+      <p>你陪孩子完成了 20 次完整的思维过程</p>
+    </div>
+    <div class="coord-card">
+      <h3>孩子已经在生长的四大能力</h3>
+      <div class="sub">这就是 AI 时代豌豆思维提出的"儿童成长新坐标"</div>
+      <div class="coords">
+        <div class="coord">
+          <div class="coord-emoji">🧭</div>
+          <div class="coord-body">
+            <b>学习主权</b>
+            <span>知道自己在学什么、卡在哪里、怎么请求帮助</span>
+          </div>
+        </div>
+        <div class="coord">
+          <div class="coord-emoji">⚙️</div>
+          <div class="coord-body">
+            <b>认知操作系统</b>
+            <span>观察、比较、建模、推理、验证，一整套稳定的思维程序</span>
+          </div>
+        </div>
+        <div class="coord">
+          <div class="coord-emoji">💡</div>
+          <div class="coord-body">
+            <b>创造性思维</b>
+            <span>不止一种方法，还能改得更清楚、更可行</span>
+          </div>
+        </div>
+        <div class="coord">
+          <div class="coord-emoji">🔋</div>
+          <div class="coord-body">
+            <b>自我调节能力</b>
+            <span>计划、专注、切换、复盘，学习越来越靠自己</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cta">
+      <h3>豌豆思维10周年·福利免费领</h3>
+      <a href="https://s.61info.cn/5PXyQ" class="cta-btn" target="_blank">领取体验课</a>
+    </div>
+    <div class="footer-tip">
+      7月16日 15:30 CBME8.1馆主舞台<br/>
+      豌豆思维课程产品负责人 姚文慧<br/>
+      演讲主题《以 AI 赋能成长，打造儿童成长新坐标》
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============== 关卡数据 ==============
+  const LEVELS = [
+    {
+      id: 1,
+      title: "数与代数 · 小小水果摊",
+      icon: "🍎",
+      iconClass: "m1",
+      desc: "买水果里的数学",
+      emoji: "🥇",
+      takeaway: "先看清要算什么，再决定怎么算。",
+      steps: [
+        {
+          type: "u",
+          question: "顾客要买 3 个苹果和 2 个香蕉，你要算什么？",
+          hint: "先看清楚问题问的是什么",
+          extra: `<div class="fruit-shop"><div class="fruit-row">
+            <div class="fruit-item"><div class="emoji">🍎</div><div class="price">3 元 / 个</div></div>
+            <div class="fruit-item"><div class="emoji">🍌</div><div class="price">2 元 / 根</div></div>
+            <div class="fruit-item"><div class="emoji">🍊</div><div class="price">4 元 / 个</div></div>
+          </div></div>`,
+          options: [
+            { text: "算一共要付多少钱", correct: true },
+            { text: "算总共有几种水果", correct: false },
+            { text: "算哪种水果更便宜", correct: false }
+          ],
+          feedbackGood: "对的！读题第一步，就是找出到底要求什么。",
+          feedbackTip: "再看一次题目——顾客买了水果，通常最关心的是……"
+        },
+        {
+          type: "p",
+          question: "你想怎么算？",
+          hint: "选择一种策略，不止一种做法哦",
+          options: [
+            { text: "先算苹果的钱，再算香蕉的钱，最后加起来", correct: true },
+            { text: "把所有价格加起来", correct: false },
+            { text: "用 20 元直接减", correct: false }
+          ],
+          feedbackGood: "很好，把大问题拆成小问题，是数学里最重要的思路。",
+          feedbackTip: "别急，先想想每种水果的价格是不是要算两次？"
+        },
+        {
+          type: "s",
+          question: "算一算，一共多少钱？",
+          hint: "3 × 3 + 2 × 2 = ?",
+          input: true,
+          answer: "13",
+          feedbackGood: "答对啦！13 元。",
+          feedbackTip: "苹果 3 元一个买 3 个是 9 元，香蕉 2 元一根买 2 根是 4 元，加起来是……"
+        },
+        {
+          type: "c",
+          question: "顾客给了 20 元，要找回多少？",
+          hint: "验证一下，也顺便算一算找零",
+          input: true,
+          answer: "7",
+          feedbackGood: "完美！20 - 13 = 7 元。会验证的孩子，粗心也会越来越少。",
+          feedbackTip: "从 20 里去掉刚才算的 13，就是要找的钱。"
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: "几何与图形 · 七巧板拼图",
+      icon: "🔺",
+      iconClass: "m2",
+      desc: "在形状里看空间",
+      emoji: "🥈",
+      takeaway: "先想再拼，比一直换手拼快得多。",
+      steps: [
+        {
+          type: "u",
+          question: "看看这只小猫，它是由几种形状拼成的？",
+          hint: "先观察，再回答",
+          extra: `<div class="tangram-preview"><div class="big">🐱</div><div class="label">目标图形：小猫</div></div>`,
+          options: [
+            { text: "三角形、正方形、平行四边形", correct: true },
+            { text: "只有三角形", correct: false },
+            { text: "圆形和三角形", correct: false }
+          ],
+          feedbackGood: "对了！七巧板由 5 个三角形、1 个正方形、1 个平行四边形组成。",
+          feedbackTip: "七巧板里其实没有圆形哦，仔细看看是不是有正方形？"
+        },
+        {
+          type: "p",
+          question: "你打算先放哪一块？",
+          hint: "在心里先'预演'一遍",
+          options: [
+            { text: "先放最大的三角形，它决定了整体轮廓", correct: true },
+            { text: "先放最小的三角形", correct: false },
+            { text: "随便拿一块试试", correct: false }
+          ],
+          feedbackGood: "对！从大到小，从整体到局部，这是空间思维的关键。",
+          feedbackTip: "拼图和搭房子一样，先搭骨架，再补细节。"
+        },
+        {
+          type: "s",
+          question: "现在动手拼一拼！",
+          hint: "在真实场景中你会拿七巧板尝试。这里我们用眼睛拼——",
+          options: [
+            { text: "✅ 我脑子里已经拼好了", correct: true },
+            { text: "🤔 拼一半发现不对，重新调整", correct: true },
+            { text: "😅 好像哪里不对，再看一次原图", correct: true }
+          ],
+          feedbackGood: "无论选哪个都很棒——真正的思考，就是不断调整。",
+          feedbackTip: ""
+        },
+        {
+          type: "c",
+          question: "怎么检查拼得对不对？",
+          hint: "验证也是很重要的一步",
+          options: [
+            { text: "对比原图，看轮廓和位置对不对", correct: true },
+            { text: "问旁边的人对不对", correct: false },
+            { text: "只要拼完了就算对", correct: false }
+          ],
+          feedbackGood: "自己检查，才能真正学会。这就是学习主权。",
+          feedbackTip: "别人告诉你对不对，你下次还是不会——所以要学会自己检查。"
+        }
+      ]
+    },
+    {
+      id: 3,
+      title: "逻辑与推理 · 谁偷吃了饼干",
+      icon: "🔍",
+      iconClass: "m3",
+      desc: "用线索排除嫌疑人",
+      emoji: "🥉",
+      takeaway: "先排除掉不可能，答案就浮出来了。",
+      steps: [
+        {
+          type: "u",
+          question: "有 4 个嫌疑人，3 条线索，你要做什么？",
+          hint: "看清任务再开始",
+          extra: `<div class="suspects" style="pointer-events:none">
+            <div class="suspect"><span class="emoji">🐶</span><span class="name">小狗</span></div>
+            <div class="suspect"><span class="emoji">🐱</span><span class="name">小猫</span></div>
+            <div class="suspect"><span class="emoji">🐰</span><span class="name">小兔</span></div>
+            <div class="suspect"><span class="emoji">🐻</span><span class="name">小熊</span></div>
+          </div>
+          <div class="clues">
+            <div class="clue">① 小熊不喜欢甜食</div>
+            <div class="clue">② 偷吃的动物没戴帽子（小狗戴了帽子 🎩）</div>
+            <div class="clue">③ 案发时小猫在睡觉 💤</div>
+          </div>`,
+          options: [
+            { text: "根据线索排除嫌疑，找出真正偷吃的那个", correct: true },
+            { text: "找出最可爱的动物", correct: false },
+            { text: "问饼干好不好吃", correct: false }
+          ],
+          feedbackGood: "对，先看清目标再动手。",
+          feedbackTip: "再看看题目——是找谁偷吃了饼干哦。"
+        },
+        {
+          type: "p",
+          question: "你想先用哪条线索？",
+          hint: "选择'先做什么'，也是一种思考",
+          options: [
+            { text: "都可以，因为每一条都能排除一个", correct: true },
+            { text: "先猜一个，再看线索对不对", correct: false },
+            { text: "只用第一条", correct: false }
+          ],
+          feedbackGood: "太好了！排除法里，每条线索都是好线索。",
+          feedbackTip: "只猜的话，可能猜错好几次——先用线索会更快。"
+        },
+        {
+          type: "s",
+          question: "根据 3 条线索，谁是真正偷吃的？",
+          hint: "①排除小熊 ②排除小狗 ③排除小猫——剩下谁？",
+          options: [
+            { text: "🐶 小狗", correct: false },
+            { text: "🐱 小猫", correct: false },
+            { text: "🐰 小兔", correct: true },
+            { text: "🐻 小熊", correct: false }
+          ],
+          feedbackGood: "答对！排除完，只剩小兔。",
+          feedbackTip: "把每条线索排除掉一个嫌疑人，最后剩下的就是答案。"
+        },
+        {
+          type: "c",
+          question: "怎么再验证一次？",
+          hint: "验证是逻辑推理的最后一步",
+          options: [
+            { text: "把三条线索套在小兔身上，都成立就没错", correct: true },
+            { text: "不需要，选出来就行", correct: false },
+            { text: "换一个人再选一次", correct: false }
+          ],
+          feedbackGood: "完美！好侦探都会回过头验证。",
+          feedbackTip: "推理和数学一样，要回头验证才放心。"
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: "统计与概率 · 神秘抽奖袋",
+      icon: "🎲",
+      iconClass: "m4",
+      desc: "预测 vs 实际",
+      emoji: "🏅",
+      takeaway: "数一数、比一比，就能看见规律。",
+      steps: [
+        {
+          type: "u",
+          question: "袋子里有 7 个红球、3 个蓝球，哪种更容易被抽到？",
+          hint: "先观察数量，再判断",
+          extra: `<div class="lottery-bag"><div class="bag-emoji">🎁</div><div class="balls-info">🔴 × 7  🔵 × 3</div></div>`,
+          options: [
+            { text: "红球，因为数量更多", correct: true },
+            { text: "蓝球，因为少的更珍贵", correct: false },
+            { text: "一样，全靠运气", correct: false }
+          ],
+          feedbackGood: "对！数量越多，抽到的机会就越大——这是概率的起点。",
+          feedbackTip: "运气也有规律哦——数量多的更容易抽到。"
+        },
+        {
+          type: "p",
+          question: "抽 10 次，你预测红蓝各多少次？",
+          hint: "先猜一猜，再和实际结果比一比",
+          predict: true,
+          feedbackGood: "记住你的预测，等下和实际对比。",
+          feedbackTip: ""
+        },
+        {
+          type: "s",
+          question: "点击'抽奖'，看看实际抽到多少次",
+          hint: "系统会为你模拟 10 次抽奖",
+          simulate: true,
+          feedbackGood: "抽完啦！看看红蓝的比例，是不是接近 7 : 3？",
+          feedbackTip: ""
+        },
+        {
+          type: "c",
+          question: "预测和实际差得多吗？为什么？",
+          hint: "反思一次，也是学习",
+          options: [
+            { text: "差一点点，因为抽的次数太少，随机性还没稳定", correct: true },
+            { text: "完全一样才是对的", correct: false },
+            { text: "袋子有问题", correct: false }
+          ],
+          feedbackGood: "答对！抽得越多，越接近真实比例——这就是大数定律。",
+          feedbackTip: "预测不用完全一致，接近就好。抽得越多，就越准。"
+        }
+      ]
+    },
+    {
+      id: 5,
+      title: "生活应用 · 周末小规划师",
+      icon: "📅",
+      iconClass: "m5",
+      desc: "会安排也是一种能力",
+      emoji: "🎖️",
+      takeaway: "把想法画出来，就能看见问题。",
+      steps: [
+        {
+          type: "u",
+          question: "周六你有 8 小时，想做这 3 件事：写作业 1h、玩耍 2h、看展 3h。加起来是多少？",
+          hint: "先算清总时长",
+          input: true,
+          answer: "6",
+          feedbackGood: "对！6 小时。看，规划前先算总量，才知道够不够。",
+          feedbackTip: "1 + 2 + 3 = ?"
+        },
+        {
+          type: "p",
+          question: "剩下 2 小时怎么安排？",
+          hint: "别忘了吃饭和休息",
+          options: [
+            { text: "留给吃饭和休息，1 小时吃饭、1 小时休息", correct: true },
+            { text: "再挤一件事进去", correct: false },
+            { text: "什么都不做", correct: false }
+          ],
+          feedbackGood: "对！留白也是规划的一部分，太满反而做不好。",
+          feedbackTip: "如果全排满了，中间没时间吃饭休息可就撑不住啦~"
+        },
+        {
+          type: "s",
+          question: "先看展还是先写作业？为什么？",
+          hint: "顺序也是一种选择",
+          options: [
+            { text: "先写作业，趁头脑清醒；再看展，作为奖励", correct: true },
+            { text: "先看展玩累了再回来写作业", correct: false },
+            { text: "都可以，看心情", correct: false }
+          ],
+          feedbackGood: "很棒！把难的、需要专注的放前面，是学习高手的做法。",
+          feedbackTip: "玩累了再写作业，效率会打折扣哦。"
+        },
+        {
+          type: "c",
+          question: "计划做完了，怎么知道执行得好不好？",
+          hint: "复盘是自我管理的关键",
+          options: [
+            { text: "晚上回头看：哪件事按时做了？哪件事拖延了？下次怎么改", correct: true },
+            { text: "做完就好，不用回顾", correct: false },
+            { text: "让爸妈评价", correct: false }
+          ],
+          feedbackGood: "完美！复盘不是找错，而是给下一次留一份提醒。",
+          feedbackTip: "如果不回顾，下次可能会犯同样的错。"
+        }
+      ]
+    }
+  ];
+
+  // ============== 状态 ==============
+  const state = {
+    completed: JSON.parse(localStorage.getItem("wandou_completed") || "[]"),
+    currentLevel: null,
+    currentStep: 0,
+    selected: null,
+    stepAnswered: false,
+    predict: { red: null, blue: null },
+    sim: null
+  };
+
+  // ============== 渲染首页 ==============
+  function renderHome() {
+    const container = document.getElementById("modules");
+    container.innerHTML = LEVELS.map(lv => {
+      const done = state.completed.includes(lv.id);
+      return `
+        <div class="module-card ${done ? 'done' : ''}" onclick="startLevel(${lv.id})">
+          <div class="module-icon ${lv.iconClass}">${lv.icon}</div>
+          <div class="module-info">
+            <div class="module-title">关卡 ${lv.id} · ${lv.title.split(' · ')[0]}</div>
+            <div class="module-desc">${lv.desc}</div>
+          </div>
+          <div class="module-status">${done ? '✓ 完成' : '开始'}</div>
+        </div>
+      `;
+    }).join("");
+    const pct = (state.completed.length / LEVELS.length) * 100;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-text").textContent = `已完成 ${state.completed.length} / ${LEVELS.length} 关`;
+  }
+
+  // ============== 屏幕切换 ==============
+  function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo(0, 0);
+  }
+
+  function goHome() {
+    if (state.completed.length === LEVELS.length) {
+      showScreen("screen-final");
+    } else {
+      renderHome();
+      showScreen("screen-home");
+    }
+  }
+
+  // ============== 关卡启动 ==============
+  function startLevel(id) {
+    state.currentLevel = LEVELS.find(l => l.id === id);
+    state.currentStep = 0;
+    state.selected = null;
+    state.stepAnswered = false;
+    state.predict = { red: null, blue: null };
+    state.sim = null;
+    document.getElementById("level-title").textContent = state.currentLevel.title;
+    renderStep();
+    showScreen("screen-level");
+  }
+
+  // ============== 步骤渲染 ==============
+  function renderStep() {
+    const level = state.currentLevel;
+    const step = level.steps[state.currentStep];
+    for (let i = 0; i < 4; i++) {
+      document.getElementById("dot-" + i).classList.toggle("active", i <= state.currentStep);
+    }
+    const tagMap = { u: "U 理解", p: "P 计划", s: "S 解决", c: "C 检查" };
+    let html = `
+      <div class="step-tag ${step.type}">${tagMap[step.type]}</div>
+      <h2 class="step-question">${step.question}</h2>
+      <p class="step-hint">${step.hint}</p>
+      ${step.extra || ""}
+    `;
+
+    if (step.options) {
+      html += `<div class="options" id="options">
+        ${step.options.map((o, i) => `
+          <button class="option" onclick="selectOption(${i})" data-idx="${i}">${o.text}</button>
+        `).join("")}
+      </div>`;
+    } else if (step.input) {
+      html += `<input type="number" class="input-field" id="answer-input" placeholder="输入答案" />`;
+    } else if (step.predict) {
+      html += `<div class="predict-input">
+        <div><label>🔴 红球（次）</label><input type="number" id="pred-red" min="0" max="10" placeholder="?" /></div>
+        <div><label>🔵 蓝球（次）</label><input type="number" id="pred-blue" min="0" max="10" placeholder="?" /></div>
+      </div><div class="step-hint" style="margin-top:-4px">加起来一共要是 10 哦</div>`;
+    } else if (step.simulate) {
+      html += `<div id="sim-area" style="text-align:center; padding: 10px 0;">
+        <button class="primary-btn" onclick="runSimulation()" style="max-width:200px; margin: 0 auto;">🎲 开始抽奖 10 次</button>
+      </div>`;
+    }
+
+    html += `<div class="feedback" id="feedback"></div>`;
+    html += `<button class="primary-btn" id="next-btn" onclick="submitStep()">确认</button>`;
+
+    document.getElementById("step-card").innerHTML = html;
+    state.stepAnswered = false;
+  }
+
+  function selectOption(idx) {
+    if (state.stepAnswered) return;
+    state.selected = idx;
+    document.querySelectorAll("#options .option").forEach((el, i) => {
+      el.classList.toggle("selected", i === idx);
+    });
+  }
+
+  // ============== 抽奖模拟 ==============
+  function runSimulation() {
+    const balls = [];
+    for (let i = 0; i < 7; i++) balls.push("🔴");
+    for (let i = 0; i < 3; i++) balls.push("🔵");
+    const results = [];
+    let red = 0, blue = 0;
+    for (let i = 0; i < 10; i++) {
+      const r = balls[Math.floor(Math.random() * balls.length)];
+      results.push(r);
+      if (r === "🔴") red++; else blue++;
+    }
+    state.sim = { red, blue, results };
+    const html = `
+      <div style="background:#F8FAFC; padding:16px; border-radius:14px; text-align:center;">
+        <div style="font-size:28px; letter-spacing:4px; line-height:1.4;">${results.join("")}</div>
+        <div style="margin-top:12px; font-size:14px; color:var(--ink-2);">
+          🔴 <b>${red}</b> 次 &nbsp;·&nbsp; 🔵 <b>${blue}</b> 次
+        </div>
+        <div style="margin-top:6px; font-size:12px; color:var(--ink-3);">
+          理论比例 7 : 3 &nbsp;·&nbsp; 实际比例 ${red} : ${blue}
+        </div>
+      </div>
+    `;
+    document.getElementById("sim-area").innerHTML = html;
+  }
+
+  // ============== 步骤提交 ==============
+  function submitStep() {
+    const level = state.currentLevel;
+    const step = level.steps[state.currentStep];
+    const feedbackEl = document.getElementById("feedback");
+    const btn = document.getElementById("next-btn");
+
+    if (state.stepAnswered) {
+      // 进入下一步
+      state.currentStep++;
+      state.selected = null;
+      if (state.currentStep >= level.steps.length) {
+        completeLevel();
+      } else {
+        renderStep();
+      }
+      return;
+    }
+
+    let ok = false;
+    let feedback = "";
+    let feedbackClass = "";
+
+    if (step.options) {
+      if (state.selected === null) {
+        alert("请先选一个答案~");
+        return;
+      }
+      const opt = step.options[state.selected];
+      ok = opt.correct;
+      // 标记
+      document.querySelectorAll("#options .option").forEach((el, i) => {
+        const isCorrect = step.options[i].correct;
+        if (isCorrect) el.classList.add("correct");
+        else if (i === state.selected && !opt.correct) el.classList.add("wrong");
+        el.style.pointerEvents = "none";
+      });
+    } else if (step.input) {
+      const val = document.getElementById("answer-input").value.trim();
+      if (!val) { alert("先输入答案~"); return; }
+      ok = val === step.answer;
+    } else if (step.predict) {
+      const r = parseInt(document.getElementById("pred-red").value);
+      const b = parseInt(document.getElementById("pred-blue").value);
+      if (isNaN(r) || isNaN(b)) { alert("红蓝都要填哦~"); return; }
+      if (r + b !== 10) { alert("红蓝加起来要等于 10 哦"); return; }
+      state.predict = { red: r, blue: b };
+      ok = true;
+    } else if (step.simulate) {
+      if (!state.sim) { alert("先点击抽奖~"); return; }
+      ok = true;
+    }
+
+    feedback = ok ? step.feedbackGood : (step.feedbackTip || step.feedbackGood);
+    feedbackClass = ok ? "good" : "tip";
+
+    feedbackEl.textContent = feedback;
+    feedbackEl.className = "feedback show " + feedbackClass;
+    btn.textContent = state.currentStep === level.steps.length - 1 ? "完成关卡 ✨" : "下一步 ›";
+    state.stepAnswered = true;
+  }
+
+  // ============== 关卡完成 ==============
+  function completeLevel() {
+    const lv = state.currentLevel;
+    if (!state.completed.includes(lv.id)) {
+      state.completed.push(lv.id);
+      localStorage.setItem("wandou_completed", JSON.stringify(state.completed));
+    }
+    document.getElementById("complete-emoji").textContent = lv.emoji;
+    document.getElementById("complete-title").textContent = `第 ${lv.id} 关完成！`;
+    document.getElementById("complete-sub").textContent = lv.title;
+    document.getElementById("complete-takeaway").textContent = "「 " + lv.takeaway + " 」";
+    showScreen("screen-complete");
+    setTimeout(() => {
+      if (state.completed.length === LEVELS.length) {
+        // 通关后可以自动跳到总结，但保留手动"回主页"体验，跳转由 goHome 决定
+      }
+    }, 100);
+  }
+
+  // ============== 初始化 ==============
+  renderHome();
+
+  // 首次打开小提示（仅一次）
+  if (!localStorage.getItem("wandou_seen")) {
+    localStorage.setItem("wandou_seen", "1");
+  }
+</script>
+</body>
+</html>
