@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豌豆思维 CBME 闯关体验 - 二维码</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .container {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+  .logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #22C55E, #10B981);
+    border-radius: 16px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  .qrcode-wrapper {
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 20px;
+  }
+  #qrcode {
+    display: inline-block;
+  }
+  .info {
+    background: #f0fdf4;
+    border: 2px solid #22C55E;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 20px;
+  }
+  .info-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #16a34a;
+    margin-bottom: 8px;
+  }
+  .info-text {
+    font-size: 12px;
+    color: #15803d;
+    line-height: 1.6;
+  }
+  .url {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #666;
+    margin-top: 20px;
+    word-break: break-all;
+    font-family: monospace;
+  }
+  .actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+  }
+  button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  button:active { transform: scale(0.96); }
+  .btn-primary {
+    background: #22C55E;
+    color: white;
+  }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+  .tips {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    text-align: left;
+  }
+  .tips h3 {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .tips ul {
+    list-style: none;
+    font-size: 12px;
+    color: #666;
+    line-height: 2;
+  }
+  .tips li:before {
+    content: "✓ ";
+    color: #22C55E;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  @media print {
+    body { background: white; }
+    .container { box-shadow: none; }
+    .actions { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">豌</div>
+  <h1>豌豆思维 · CBME 闯关体验</h1>
+  <div class="subtitle">十年沉淀，思维成长看得见</div>
+
+  <div class="qrcode-wrapper">
+    <div id="qrcode"></div>
+  </div>
+
+  <div class="info">
+    <div class="info-title">🎯 扫码即玩</div>
+    <div class="info-text">
+      五关小游戏，答案不是重点，孩子怎么想才是<br>
+      UPSC 四步思维法，看见思维怎么生长
+    </div>
+  </div>
+
+  <div class="url">
+    https://1879840.github.io/-CBME-/
+  </div>
+
+  <div class="actions">
+    <button class="btn-secondary" onclick="downloadQR()">下载二维码</button>
+    <button class="btn-primary" onclick="window.print()">打印此页</button>
+  </div>
+
+  <div class="tips">
+    <h3>💡 使用建议</h3>
+    <ul>
+      <li>展位立牌：打印此页，A4 纸张</li>
+      <li>集章卡背面：截图二维码，缩放至 2×2 cm</li>
+      <li>海报使用：下载高清版，分辨率 300 DPI</li>
+      <li>朋友圈分享：长按二维码识别即可</li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+  // 生成二维码
+  const qrcode = new QRCode(document.getElementById("qrcode"), {
+    text: "https://1879840.github.io/-CBME-/",
+    width: 280,
+    height: 280,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  // 下载二维码
+  function downloadQR() {
+    const canvas = document.querySelector('#qrcode canvas');
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '豌豆思维CBME闯关体验-二维码.png';
+    a.click();
+  }
+</script>
+</body>
+</html>

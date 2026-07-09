@@ -638,9 +638,48 @@
     color: var(--ink-2);
     cursor: pointer;
   }
+  /* 音乐控制按钮 */
+  .music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: var(--brand);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    z-index: 1000;
+    transition: transform 0.2s;
+  }
+  .music-btn:active { transform: scale(0.9); }
+  .music-btn.playing {
+    animation: music-pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes music-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .music-icon {
+    font-size: 24px;
+  }
 </style>
 </head>
 <body>
+<!-- 背景音乐 -->
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 音乐控制按钮 -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  <span class="music-icon" id="musicIcon">🔇</span>
+</button>
+
 <div class="app">
 
   <!-- ========== 顶部 Logo ========== -->
@@ -1287,6 +1326,41 @@
   if (!localStorage.getItem("wandou_seen")) {
     localStorage.setItem("wandou_seen", "1");
   }
+
+  // ============== 背景音乐控制 ==============
+  const bgMusic = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+  const musicIcon = document.getElementById('musicIcon');
+  let isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicIcon.textContent = '🔇';
+      musicBtn.classList.remove('playing');
+    } else {
+      bgMusic.play().catch(e => {
+        console.log('音乐播放需要用户交互');
+      });
+      musicIcon.textContent = '🎵';
+      musicBtn.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+  }
+
+  // 自动尝试播放（某些浏览器可能会阻止）
+  document.addEventListener('click', function autoPlay() {
+    if (!isPlaying) {
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicIcon.textContent = '🎵';
+        musicBtn.classList.add('playing');
+      }).catch(e => {
+        // 用户未主动点击音乐按钮，静默失败
+      });
+    }
+    document.removeEventListener('click', autoPlay);
+  }, { once: true });
 </script>
 </body>
 </html>
