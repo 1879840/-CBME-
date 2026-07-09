@@ -1,0 +1,9 @@
+{
+  "name": "wandou-cbme-h5",
+  "version": "1.0.0",
+  "description": "豌豆思维CBME闯关体验H5",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "build": "echo 'Static HTML, no build needed'"
+  }
+}
